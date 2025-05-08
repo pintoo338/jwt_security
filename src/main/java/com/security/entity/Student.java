@@ -35,7 +35,8 @@ public class Student {
     }*/
 
     // Default constructor (required for JPA)
-    public Student() {}
+    public Student() {
+    }
 
     // Constructor with all fields
     public Student(int id, String firstName, String lastName, String email, String address) {

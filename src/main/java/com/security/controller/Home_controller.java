@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/home/public")
 public class Home_controller {
     @GetMapping
-    public String add(){
+    public String add() {
         return "hello";
     }
-
-
 
 
 }

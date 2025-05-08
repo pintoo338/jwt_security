@@ -1,7 +1,6 @@
 package com.security.entity;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Service;
 
 
 @Entity

@@ -1,7 +1,6 @@
 package com.security.service;
 
 import com.security.entity.Student;
-import com.security.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

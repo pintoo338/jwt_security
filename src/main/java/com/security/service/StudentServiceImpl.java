@@ -3,12 +3,11 @@ package com.security.service;
 import com.security.dao.StudentRepository;
 import com.security.dao.UserRepository;
 import com.security.entity.Student;
-import com.security.entity.User;
-import com.security.service.Studentservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class StudentServiceImpl implements Studentservice {
 

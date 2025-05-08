@@ -18,8 +18,8 @@ public class Global_Exception {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
         ErrorResponse error = new ErrorResponse(
-            ex.getMessage(),
-            "Student_NOT_FOUND"
+                ex.getMessage(),
+                "Student_NOT_FOUND"
         );
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
@@ -27,11 +27,12 @@ public class Global_Exception {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         ErrorResponse error = new ErrorResponse(
-            "Student not exist",
-            "Try again"
+                "Student not exist",
+                "Try again"
         );
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     @ExceptionHandler(AuthorizationDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<Object> handleAuthorizationDeniedException(AuthorizationDeniedException ex) {

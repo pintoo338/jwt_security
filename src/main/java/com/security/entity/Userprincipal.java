@@ -7,17 +7,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class Userprincipal implements UserDetails {
 
-@Autowired
-    private  User user;
-
+    @Autowired
+    private User user;
 
 
     public Userprincipal(User user) {
-        this.user=user;
+        this.user = user;
     }
 
     @Override

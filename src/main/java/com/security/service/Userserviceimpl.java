@@ -11,10 +11,10 @@ import java.util.List;
 @Service
 public class Userserviceimpl implements Userservice {
 
- @Autowired
- private UserRepository userRepository;
-@Autowired
- private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User saveUser(User user) {

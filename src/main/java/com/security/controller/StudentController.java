@@ -1,7 +1,6 @@
 package com.security.controller;
 
 import com.security.entity.Student;
-import com.security.entity.User;
 import com.security.service.Studentservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
