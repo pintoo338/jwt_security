@@ -16,7 +16,6 @@ public class StudentController {
     private Studentservice studentservice;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public List<Student> getStudents() {
         return this.studentservice.getallStudents();
     }

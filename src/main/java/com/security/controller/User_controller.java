@@ -34,7 +34,7 @@ public class User_controller {
     private JwtUtils jwtUtils;
 
     @GetMapping("/users")
-    @PreAuthorize("hasRole('USER')")
+  @PreAuthorize("hasRole('ADMIN')")
     public List<User> getAllUsers() {
         return userservice.getAllUsers();
     }
@@ -71,6 +71,7 @@ public class User_controller {
 
         return ResponseEntity.ok(response);
     }
+
 
 
 }

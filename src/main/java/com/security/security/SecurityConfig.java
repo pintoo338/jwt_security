@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.management.Query;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -37,20 +40,24 @@ public class SecurityConfig {
 
 
     @Bean
-    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) ->
-                requests.requestMatchers("/home/public").permitAll()
-                        .requestMatchers("/home/admin/**").permitAll()
-                        .requestMatchers("/home/user/**").permitAll()
-                        .anyRequest().authenticated());
-        http.sessionManagement(session
-                -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.formLogin(withDefaults());
-        http.csrf(csrf -> csrf.disable());
-        http.addFilterBefore(authenticationJwtTokenFilter(),
-                UsernamePasswordAuthenticationFilter.class);
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/home/public").permitAll() // Public routes
+                                .requestMatchers("/home/admin/**").authenticated() // Admin routes
+                                .requestMatchers("/home/oauth/**").authenticated() // OAuth routes
+                                .requestMatchers("/home/user/**").permitAll() // User routes
+                                .anyRequest().authenticated() // Any other request requires authentication
+                )
+                .oauth2Login(Customizer.withDefaults()
+                )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless session for REST APIs
+                )
+                .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
+                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class) // JWT filter
+                .httpBasic(withDefaults()); // Optional: HTTP Basic authentication (if required)
 
-        http.httpBasic(withDefaults());
         return http.build();
     }
 
