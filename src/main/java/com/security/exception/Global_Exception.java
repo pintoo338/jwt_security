@@ -24,6 +24,14 @@ public class Global_Exception {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFound(Exception ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                "Student_NOT_FOUND"
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 
 
     @ExceptionHandler(AuthorizationDeniedException.class)
